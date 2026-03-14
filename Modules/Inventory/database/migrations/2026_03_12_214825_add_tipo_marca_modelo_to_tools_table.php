@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up()
+    {
+        Schema::table('tools', function (Blueprint $table) {
+            if (!Schema::hasColumn('tools', 'tipo')) {
+                $table->string('tipo')->nullable()->after('name');
+                $table->string('marca')->nullable()->after('tipo');
+                $table->string('modelo')->nullable()->after('marca');
+            }
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('tools', function (Blueprint $table) {
+            $table->dropColumn(['tipo', 'marca', 'modelo']);
+        });
+    }
+};

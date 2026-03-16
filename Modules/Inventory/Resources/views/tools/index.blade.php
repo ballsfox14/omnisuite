@@ -10,15 +10,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold flex items-center gap-2">
                             <span class="material-icons" style="color: #003366;">list</span>
                             Listado de Herramientas
                         </h3>
-                        <a href="{{ route('inventory.tools.create') }}"
-                            style="background-color: #003366; color: white; font-weight: bold; padding: 8px 16px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
-                            <span class="material-icons">add</span> Nueva Herramienta
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="{{ route('inventory.tools.pdf-codes') }}"
+                                style="background-color: #003366; color: white; font-weight: bold; padding: 8px 16px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
+                                <span class="material-icons">picture_as_pdf</span>
+                                Exportar códigos PDF
+                            </a>
+                            <a href="{{ route('inventory.tools.create') }}"
+                                style="background-color: #003366; color: white; font-weight: bold; padding: 8px 16px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
+                                <span class="material-icons">add</span> Nueva Herramienta
+                            </a>
+                        </div>
                     </div>
 
                     @if (session('success'))

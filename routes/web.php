@@ -25,4 +25,18 @@ Route::middleware(['auth'])->prefix('logs')->name('logs.')->group(function () {
     Route::get('/', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('index');
 });
 
+Route::prefix('reports')->name('reports.')->group(function () {
+    Route::get('/', [App\Http\Controllers\ReportController::class, 'index'])->name('index');
+
+    // Excel
+    Route::get('/tools/excel', [App\Http\Controllers\ReportController::class, 'exportToolsExcel'])->name('tools.excel');
+    Route::get('/kits/excel', [App\Http\Controllers\ReportController::class, 'exportKitsExcel'])->name('kits.excel');
+    Route::get('/loans/excel', [App\Http\Controllers\ReportController::class, 'exportLoansExcel'])->name('loans.excel');
+
+    // PDF
+    Route::get('/tools/pdf', [App\Http\Controllers\ReportController::class, 'exportToolsPdf'])->name('tools.pdf');
+    Route::get('/kits/pdf', [App\Http\Controllers\ReportController::class, 'exportKitsPdf'])->name('kits.pdf');
+    Route::get('/loans/pdf', [App\Http\Controllers\ReportController::class, 'exportLoansPdf'])->name('loans.pdf');
+});
+
 require __DIR__ . '/auth.php';

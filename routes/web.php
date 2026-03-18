@@ -25,4 +25,6 @@ Route::middleware(['auth'])->prefix('logs')->name('logs.')->group(function () {
     Route::get('/', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('index');
 });
 
+Route::get('/inventory/tools/pdf-codes', [App\Http\Controllers\ToolPdfController::class, 'exportCodes'])->name('inventory.tools.pdf-codes');
+
 require __DIR__ . '/auth.php';

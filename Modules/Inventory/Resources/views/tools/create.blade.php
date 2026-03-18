@@ -152,22 +152,26 @@
 
             document.getElementById('add-accesorio-btn').addEventListener('click', function () {
                 const div = document.createElement('div');
-                div.className = 'flex gap-2 mb-2 items-center';
+                div.className = 'flex gap-2 mb-2 items-center accesorio-item';
                 div.innerHTML = `
-                    <input type="text" name="accesorios[${accIndex}]" placeholder="Nombre del accesorio" 
-                           class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
-                    <button type="button" class="remove-accesorio text-white bg-red-600 hover:bg-red-700 rounded px-3 py-2 flex items-center justify-center h-10"
-                            style="background-color: #dc3545; border: none; cursor: pointer;">
-                        <span class="material-icons">delete</span>
-                    </button>
-                `;
+                <input type="text" name="accesorios[${accIndex}]" placeholder="Nombre del accesorio" 
+                       class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                <button type="button" class="remove-accesorio text-white bg-red-600 hover:bg-red-700 rounded px-3 py-2 flex items-center justify-center h-10"
+                        style="background-color: #dc3545; border: none; cursor: pointer;">
+                    <span class="material-icons">delete</span>
+                </button>
+            `;
                 container.appendChild(div);
                 accIndex++;
             });
 
             document.addEventListener('click', function (e) {
-                if (e.target.closest('.remove-accesorio')) {
-                    e.target.closest('.flex').remove();
+                const removeBtn = e.target.closest('.remove-accesorio');
+                if (removeBtn) {
+                    const item = removeBtn.closest('.accesorio-item');
+                    if (item) {
+                        item.remove();
+                    }
                 }
             });
         </script>

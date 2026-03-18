@@ -39,4 +39,6 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/loans/pdf', [App\Http\Controllers\ReportController::class, 'exportLoansPdf'])->name('loans.pdf');
 });
 
+Route::get('/inventory/tools/pdf-codes', [App\Http\Controllers\ToolPdfController::class, 'exportCodes'])->name('inventory.tools.pdf-codes');
+
 require __DIR__ . '/auth.php';

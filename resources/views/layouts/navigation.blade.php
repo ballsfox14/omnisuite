@@ -57,6 +57,10 @@
                                     <span class="material-icons mr-2 text-base">history</span>
                                     Historial
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('reports.index')">
+                                    <span class="material-icons mr-2 text-base">assessment</span>
+                                    Reportes
+                                </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>

@@ -3,64 +3,84 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Códigos de Herramientas</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
         body {
-            font-family: 'Courier New', monospace;
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
             margin: 20px;
-            font-size: 10pt;
+            color: #1e293b;
+            line-height: 1.4;
         }
 
-        h1 {
+        h2 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
             text-align: center;
             color: #003366;
-            font-size: 16pt;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            font-size: 18px;
         }
 
-        .fecha {
-            text-align: right;
+        .subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #4b5563;
             margin-bottom: 20px;
-            font-style: italic;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 10px;
         }
 
         th {
             background-color: #003366;
             color: white;
-            padding: 8px;
+            padding: 8px 6px;
             text-align: left;
+            font-weight: 500;
+            font-size: 9px;
+            letter-spacing: 0.5px;
         }
 
         td {
-            border: 1px solid #ccc;
+            border: 1px solid #e2e8f0;
             padding: 6px;
+            font-size: 9px;
+            vertical-align: top;
         }
 
-        .codigo {
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
+        tr:nth-child(even) {
+            background-color: #f8fafc;
         }
 
-        .page-break {
-            page-break-after: always;
+        .footer {
+            margin-top: 20px;
+            font-size: 8px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 8px;
         }
 
-        .small {
-            font-size: 8pt;
-            color: #666;
+        .code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Listado de Códigos de Herramientas</h1>
-    <div class="fecha">Generado el: {{ $fecha }}</div>
+    <h2>Listado de Códigos de Herramientas</h2>
+    <div class="subtitle">
+        Generado el {{ now()->format('d/m/Y H:i:s') }}
+    </div>
 
     <table>
         <thead>
@@ -78,7 +98,7 @@
                 <tr>
                     <td>{{ $tool->id }}</td>
                     <td>{{ $tool->name }}</td>
-                    <td class="codigo">{{ $tool->code }}</td>
+                    <td class="code">{{ $tool->code }}</td>
                     <td>{{ $tool->tipo }}</td>
                     <td>{{ $tool->marca }}</td>
                     <td>{{ $tool->modelo }}</td>
@@ -87,7 +107,7 @@
         </tbody>
     </table>
 
-    <div class="small">
+    <div class="footer">
         Total de herramientas: {{ $tools->count() }}
     </div>
 </body>

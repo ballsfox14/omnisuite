@@ -41,6 +41,13 @@ class PermisosRolesSeeder extends Seeder
             'crear areas',
             'editar areas',
             'eliminar areas',
+            'ver reportes',
+            'ver logs',
+            'ver asistencia',
+            'marcar asistencia',
+            'cerrar semanas',
+            'usar modo extraordinario',
+            'usar modo pausa',
         ];
 
         foreach ($permisos as $permiso) {

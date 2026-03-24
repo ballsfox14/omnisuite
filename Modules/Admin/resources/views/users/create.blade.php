@@ -13,11 +13,11 @@
                     <form method="POST" action="{{ route('admin.users.store') }}">
                         @csrf
 
-                        <!-- Datos básicos en tarjeta -->
+                        <!-- Datos básicos -->
                         <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
                             <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <span class="material-icons" style="color: #003366;">info</span>
-                                Datos del Usuario
+                                Datos personales
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -25,8 +25,8 @@
                                         <span class="material-icons text-gray-500">badge</span> Nombre
                                     </label>
                                     <input type="text" name="name" id="name" value="{{ old('name') }}"
-                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    @error('name') <p class="mt-1 text-sm text-red-600 flex items-center gap-1"><span class="material-icons text-sm">error</span>{{ $message }}</p> @enderror
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                                    @error('name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
 
                                 <div>
@@ -34,33 +34,15 @@
                                         <span class="material-icons text-gray-500">email</span> Email
                                     </label>
                                     <input type="email" name="email" id="email" value="{{ old('email') }}"
-                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    @error('email') <p class="mt-1 text-sm text-red-600 flex items-center gap-1"><span class="material-icons text-sm">error</span>{{ $message }}</p> @enderror
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                                    @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
 
                                 <div>
-                                    <label for="password" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
-                                        <span class="material-icons text-gray-500">lock</span> Contraseña
-                                    </label>
-                                    <input type="password" name="password" id="password"
-                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    @error('password') <p class="mt-1 text-sm text-red-600 flex items-center gap-1"><span class="material-icons text-sm">error</span>{{ $message }}</p> @enderror
-                                </div>
-
-                                <div>
-                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
-                                        <span class="material-icons text-gray-500">lock_reset</span> Confirmar Contraseña
-                                    </label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation"
-                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                </div>
-
-                                <!-- Área (nuevo campo) -->
-                                <div class="md:col-span-2">
                                     <label for="area_id" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
                                         <span class="material-icons text-gray-500">business</span> Área
                                     </label>
-                                    <select name="area_id" id="area_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <select name="area_id" id="area_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
                                         <option value="">Seleccionar área</option>
                                         @foreach($areas as $area)
                                             <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>
@@ -70,25 +52,124 @@
                                     </select>
                                     @error('area_id') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">qr_code</span> Código de empleado
+                                    </label>
+                                    <div class="mt-1">
+                                        <span class="inline-flex items-center px-3 py-2 rounded-md border border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                            <span class="material-icons text-sm mr-1">autorenew</span>
+                                            Se generará automáticamente
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Formato: OMN-EMP-XXXXX (número secuencial)</p>
+                                </div>
+
+                                <div>
+                                    <label for="password" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">lock</span> Contraseña
+                                    </label>
+                                    <input type="password" name="password" id="password"
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                                    @error('password') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                                </div>
+
+                                <div>
+                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">lock_reset</span> Confirmar contraseña
+                                    </label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation"
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Permisos agrupados por categorías (igual que antes) -->
+                        <!-- Configuración laboral -->
+                        <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                                <span class="material-icons" style="color: #003366;">work</span>
+                                Configuración laboral
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="contract_type" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">work</span> Tipo de contrato
+                                    </label>
+                                    <select name="contract_type" id="contract_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                                        <option value="full_time" {{ old('contract_type', 'full_time') == 'full_time' ? 'selected' : '' }}>Tiempo completo</option>
+                                        <option value="part_time" {{ old('contract_type') == 'part_time' ? 'selected' : '' }}>Medio tiempo</option>
+                                        <option value="custom" {{ old('contract_type') == 'custom' ? 'selected' : '' }}>Personalizado</option>
+                                    </select>
+                                    @error('contract_type') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                                </div>
+
+                                <div>
+                                    <label for="weekly_hours" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">schedule</span> Horas semanales
+                                    </label>
+                                    <input type="number" step="0.5" name="weekly_hours" id="weekly_hours" value="{{ old('weekly_hours') }}"
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10">
+                                    @error('weekly_hours') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">weekend</span> Día de descanso (opcional)
+                                    </label>
+                                    @php $restDay = old('rest_day'); @endphp
+                                    <div class="flex flex-wrap gap-3 items-center">
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="rest_day" value="" {{ $restDay === null ? 'checked' : '' }} class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                                            <span class="ml-2 text-sm text-gray-700">No definido</span>
+                                        </label>
+                                        @foreach([
+                                            ['value' => 0, 'label' => 'Domingo'],
+                                            ['value' => 1, 'label' => 'Lunes'],
+                                            ['value' => 2, 'label' => 'Martes'],
+                                            ['value' => 3, 'label' => 'Miércoles'],
+                                            ['value' => 4, 'label' => 'Jueves'],
+                                            ['value' => 5, 'label' => 'Viernes'],
+                                            ['value' => 6, 'label' => 'Sábado'],
+                                        ] as $day)
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="rest_day" value="{{ $day['value'] }}" {{ $restDay == $day['value'] ? 'checked' : '' }} class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                                            <span class="ml-2 text-sm text-gray-700">{{ $day['label'] }}</span>
+                                        </label>
+                                        @endforeach
+                                    </div>
+                                    @error('rest_day') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                                </div>
+
+                                <!-- Saldo inicial -->
+                                <div class="md:col-span-2">
+                                    <label for="initial_balance" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                                        <span class="material-icons text-gray-500">account_balance</span> Saldo inicial (horas)
+                                    </label>
+                                    <input type="number" step="0.01" name="initial_balance" id="initial_balance" value="{{ old('initial_balance', 0) }}"
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10"
+                                           placeholder="Positivo = horas a favor, negativo = horas que debe">
+                                    @error('initial_balance') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Permisos y roles -->
                         <div class="mb-6">
                             <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <span class="material-icons" style="color: #003366;">security</span>
-                                Permisos del Usuario
+                                Permisos y roles
                             </h3>
 
                             @php
-                                $grouped = $permissions->groupBy(function($perm) {
+                                $groupedPermissions = $permissions->groupBy(function($perm) {
                                     $parts = explode(' ', $perm->name);
                                     return $parts[1] ?? 'otros';
                                 });
                             @endphp
 
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                @foreach($grouped as $category => $perms)
+                                @foreach($groupedPermissions as $category => $perms)
                                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                         <h4 class="font-medium text-gray-700 mb-3 flex items-center gap-1 capitalize">
                                             <span class="material-icons" style="color: #003366;">
@@ -98,6 +179,7 @@
                                                     @case('permisos') lock @break
                                                     @case('herramientas') build @break
                                                     @case('kits') inventory @break
+                                                    @case('areas') business @break
                                                     @default check_circle
                                                 @endswitch
                                             </span>
@@ -119,30 +201,28 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </div>
 
-                        <!-- Roles -->
-                        <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-gray-700 mb-3 flex items-center gap-1">
-                                <span class="material-icons" style="color: #003366;">assignment_ind</span>
-                                Asignar Roles
-                            </h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                                @foreach($roles as $role)
-                                    <div class="flex items-center">
-                                        <input type="checkbox" name="roles[]" value="{{ $role->name }}"
-                                               id="role_{{ $role->id }}"
-                                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                               {{ in_array($role->name, old('roles', [])) ? 'checked' : '' }}>
-                                        <label for="role_{{ $role->id }}" class="ml-2 text-sm text-gray-700">
-                                            {{ $role->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                            <div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <h4 class="font-medium text-gray-700 mb-3 flex items-center gap-1">
+                                    <span class="material-icons" style="color: #003366;">assignment_ind</span>
+                                    Asignar roles
+                                </h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    @foreach($roles as $role)
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="roles[]" value="{{ $role->name }}"
+                                                   id="role_{{ $role->id }}"
+                                                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                                   {{ in_array($role->name, old('roles', [])) ? 'checked' : '' }}>
+                                            <label for="role_{{ $role->id }}" class="ml-2 text-sm text-gray-700">
+                                                {{ $role->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Botones de acción -->
                         <div class="flex justify-end gap-2">
                             <a href="{{ route('admin.users.index') }}"
                                style="background-color: #6c757d; color: white; font-weight: bold; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
@@ -150,7 +230,7 @@
                             </a>
                             <button type="submit"
                                     style="background-color: #28a745; color: white; font-weight: bold; padding: 8px 16px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; border: none; cursor: pointer;">
-                                <span class="material-icons">save</span> Guardar Usuario
+                                <span class="material-icons">save</span> Guardar
                             </button>
                         </div>
                     </form>
@@ -158,4 +238,24 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        const contractSelect = document.getElementById('contract_type');
+        const weeklyInput = document.getElementById('weekly_hours');
+
+        function updateWeeklyHours() {
+            const val = contractSelect.value;
+            if (val === 'full_time') {
+                weeklyInput.value = 44;
+            } else if (val === 'part_time') {
+                weeklyInput.value = 22;
+            } else {
+                weeklyInput.value = '';
+            }
+        }
+        contractSelect.addEventListener('change', updateWeeklyHours);
+        updateWeeklyHours();
+    </script>
+    @endpush
 </x-app-layout>

@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <!-- Información básica del usuario en cards -->
+                    <!-- Información básica del usuario -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                             <p class="text-sm font-medium text-gray-500 flex items-center gap-1">
@@ -56,7 +56,64 @@
                         </div>
                     </div>
 
-                    <!-- Roles asignados (card) -->
+                    <!-- Información laboral -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <p class="text-sm font-medium text-gray-500 flex items-center gap-1">
+                                <span class="material-icons text-gray-400">business</span> Área
+                            </p>
+                            <p class="mt-1 text-lg">{{ $user->area->name ?? 'Sin área' }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <p class="text-sm font-medium text-gray-500 flex items-center gap-1">
+                                <span class="material-icons text-gray-400">qr_code</span> Código de empleado
+                            </p>
+                            <p class="mt-1 text-lg font-mono">{{ $user->employee_code ?? '—' }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <p class="text-sm font-medium text-gray-500 flex items-center gap-1">
+                                <span class="material-icons text-gray-400">work</span> Tipo de contrato
+                            </p>
+                            <p class="mt-1 text-lg">
+                                @switch($user->contract_type)
+                                    @case('full_time')
+                                        Tiempo completo (44h)
+                                        @break
+                                    @case('part_time')
+                                        Medio tiempo (22h)
+                                        @break
+                                    @case('custom')
+                                        Personalizado
+                                        @break
+                                    @default
+                                        —
+                                @endswitch
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <p class="text-sm font-medium text-gray-500 flex items-center gap-1">
+                                <span class="material-icons text-gray-400">schedule</span> Horas semanales
+                            </p>
+                            <p class="mt-1 text-lg">{{ $user->weekly_hours ?? '—' }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 md:col-span-2">
+                            <p class="text-sm font-medium text-gray-500 flex items-center gap-1">
+                                <span class="material-icons text-gray-400">weekend</span> Día de descanso
+                            </p>
+                            <p class="mt-1 text-lg">
+                                @if($user->rest_day !== null)
+                                    @php
+                                        $days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+                                    @endphp
+                                    {{ $days[$user->rest_day] }}
+                                @else
+                                    No definido
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Roles asignados -->
                     @if($user->roles->count() > 0)
                     <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
                         <h4 class="font-medium text-gray-700 mb-3 flex items-center gap-1">
@@ -74,7 +131,7 @@
                     </div>
                     @endif
 
-                    <!-- Permisos directos agrupados por categoría -->
+                    <!-- Permisos directos agrupados -->
                     @if($user->permissions->count() > 0)
                     <div class="mb-6">
                         <h4 class="font-medium text-gray-700 mb-3 flex items-center gap-1">
@@ -83,7 +140,6 @@
                         </h4>
 
                         @php
-                            // Agrupar permisos por la segunda palabra (categoría)
                             $grouped = $user->permissions->groupBy(function($perm) {
                                 $parts = explode(' ', $perm->name);
                                 return $parts[1] ?? 'otros';
@@ -119,7 +175,7 @@
                     </div>
                     @endif
 
-                    <!-- Mensaje si no tiene permisos directos -->
+                    <!-- Mensaje si no tiene roles ni permisos -->
                     @if($user->permissions->count() == 0 && $user->roles->count() == 0)
                         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center text-gray-500">
                             <span class="material-icons align-middle mr-1">info</span>

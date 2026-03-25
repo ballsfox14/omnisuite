@@ -112,6 +112,32 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Reportes de Asistencia -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="material-icons" style="color: #003366;">access_time</span>
+                    Asistencia
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div
+                        class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="material-icons text-3xl text-indigo-500">schedule</span>
+                                <span
+                                    class="text-xs font-semibold text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">Excel/PDF</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-1">Registros de asistencia</h4>
+                            <p class="text-sm text-gray-600 mb-4">Exporta registros por empleado y rango de fechas.</p>
+                            <a href="{{ route('reports.attendance.form') }}"
+                                class="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-800">
+                                Generar reporte <span class="material-icons text-sm">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

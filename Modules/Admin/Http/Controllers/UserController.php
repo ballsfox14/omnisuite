@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-
 class UserController extends Controller
 {
     public function __construct()
@@ -31,7 +30,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        $areas = Area::all(); // <-- nuevo
+        $areas = Area::all();
         return view('admin::users.create', compact('roles', 'permissions', 'areas'));
     }
 
@@ -43,18 +42,33 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'roles' => 'array',
             'permissions' => 'array',
+            'contract_type' => 'required|in:full_time,part_time,custom',
+            'weekly_hours' => 'nullable|numeric|min:0|max:168',
+            'rest_day' => 'nullable|integer|min:0|max:6',
+            'area_id' => 'nullable|exists:areas,id',
+            'initial_balance' => 'nullable|numeric', // nuevo campo
         ]);
+
+        // Generar código de empleado automáticamente
+        $lastUser = User::orderBy('id', 'desc')->first();
+        $nextId = $lastUser ? $lastUser->id + 1 : 1;
+        $employeeCode = 'OMN-EMP-' . str_pad($nextId, 5, '0', STR_PAD_LEFT);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'area_id' => $request->area_id,
+            'employee_code' => $employeeCode,
+            'contract_type' => $request->contract_type,
+            'weekly_hours' => $request->weekly_hours,
+            'rest_day' => $request->rest_day,
+            'initial_balance' => $request->initial_balance ?? 0,
         ]);
 
         if ($request->has('roles')) {
             $user->syncRoles($request->roles);
         }
-
         if ($request->has('permissions')) {
             $user->syncPermissions($request->permissions);
         }
@@ -71,7 +85,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        $areas = Area::all(); // <-- nuevo
+        $areas = Area::all();
         return view('admin::users.edit', compact('user', 'roles', 'permissions', 'areas'));
     }
 
@@ -83,11 +97,21 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'roles' => 'array',
             'permissions' => 'array',
+            'contract_type' => 'required|in:full_time,part_time,custom',
+            'weekly_hours' => 'nullable|numeric|min:0|max:168',
+            'rest_day' => 'nullable|integer|min:0|max:6',
+            'area_id' => 'nullable|exists:areas,id',
+            'initial_balance' => 'nullable|numeric',
         ]);
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'area_id' => $request->area_id,
+            'contract_type' => $request->contract_type,
+            'weekly_hours' => $request->weekly_hours,
+            'rest_day' => $request->rest_day,
+            'initial_balance' => $request->initial_balance ?? 0,
         ];
 
         if ($request->filled('password')) {

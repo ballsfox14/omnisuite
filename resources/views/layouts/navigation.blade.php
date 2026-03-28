@@ -73,7 +73,7 @@
                         </div>
                     @endif
 
-                    <!-- Inventario Dropdown (sin cambios) -->
+                    <!-- Inventario Dropdown -->
                     @php
                         $showInventoryDropdown = auth()->user()->can('ver herramientas') ||
                             auth()->user()->can('ver kits') ||
@@ -122,7 +122,7 @@
                         </div>
                     @endif
 
-                    <!-- Asistencia Dropdown (nuevo) -->
+                    <!-- Asistencia Dropdown -->
                     @php
                         $showAttendanceDropdown = auth()->user()->can('marcar asistencia') ||
                             auth()->user()->can('ver asistencia');
@@ -170,7 +170,7 @@
                         </div>
                     @endif
 
-                    <!-- Reportes Dropdown (nuevo) -->
+                    <!-- Reportes Dropdown -->
                     @php
                         $showReportsDropdown = auth()->user()->can('ver reportes') ||
                             auth()->user()->can('ver logs');
@@ -211,10 +211,59 @@
                             </x-dropdown>
                         </div>
                     @endif
+
+                    <!-- Contratos Dropdown -->
+                    @php
+                        $showContractsDropdown = auth()->user()->can('ver contratos') ||
+                            auth()->user()->can('ver paquetes') ||
+                            auth()->user()->can('ver zonas');
+                    @endphp
+                    @if($showContractsDropdown)
+                        <div class="hidden sm:flex sm:items-center sm:ml-6">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        <span class="material-icons mr-1 text-base">description</span>
+                                        <div>Contratos</div>
+                                        <div class="ml-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    @can('ver contratos')
+                                        <x-dropdown-link :href="route('contracts.index')">
+                                            <span class="material-icons mr-2 text-base">assignment</span>
+                                            Contratos
+                                        </x-dropdown-link>
+                                    @endcan
+                                    @can('ver paquetes')
+                                        <x-dropdown-link :href="route('packages.index')">
+                                            <span class="material-icons mr-2 text-base">inventory</span>
+                                            Paquetes
+                                        </x-dropdown-link>
+                                    @endcan
+                                    @can('ver zonas')
+                                        <x-dropdown-link :href="route('zones.index')">
+                                            <span class="material-icons mr-2 text-base">location_on</span>
+                                            Zonas
+                                        </x-dropdown-link>
+                                    @endcan
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    @endif
                 </div>
             </div>
 
-            <!-- Settings Dropdown (sin cambios) -->
+            <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -268,7 +317,7 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu (versión móvil) -->
+    <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -422,9 +471,46 @@
                     </div>
                 </div>
             @endif
+
+            <!-- Responsive Contratos -->
+            @php
+                $showContractsDropdown = auth()->user()->can('ver contratos') ||
+                    auth()->user()->can('ver paquetes') ||
+                    auth()->user()->can('ver zonas');
+            @endphp
+            @if($showContractsDropdown)
+                <div class="pt-4 pb-1 border-t border-gray-200">
+                    <div class="px-4">
+                        <div class="font-medium text-base text-gray-800">
+                            <span class="material-icons mr-2 text-base align-middle">description</span>
+                            Contratos
+                        </div>
+                    </div>
+                    <div class="mt-3 space-y-1">
+                        @can('ver contratos')
+                            <x-responsive-nav-link :href="route('contracts.index')">
+                                <span class="material-icons mr-2 text-base">assignment</span>
+                                Contratos
+                            </x-responsive-nav-link>
+                        @endcan
+                        @can('ver paquetes')
+                            <x-responsive-nav-link :href="route('packages.index')">
+                                <span class="material-icons mr-2 text-base">inventory</span>
+                                Paquetes
+                            </x-responsive-nav-link>
+                        @endcan
+                        @can('ver zonas')
+                            <x-responsive-nav-link :href="route('zones.index')">
+                                <span class="material-icons mr-2 text-base">location_on</span>
+                                Zonas
+                            </x-responsive-nav-link>
+                        @endcan
+                    </div>
+                </div>
+            @endif
         </div>
 
-        <!-- Responsive Settings Options (sin cambios) -->
+        <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">

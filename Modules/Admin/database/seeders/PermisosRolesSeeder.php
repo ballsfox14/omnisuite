@@ -48,6 +48,23 @@ class PermisosRolesSeeder extends Seeder
             'cerrar semanas',
             'usar modo extraordinario',
             'usar modo pausa',
+            // Contratos
+            'ver contratos',
+            'crear contratos',
+            'editar contratos',
+            'eliminar contratos',
+
+            // Paquetes
+            'ver paquetes',
+            'crear paquetes',
+            'editar paquetes',
+            'eliminar paquetes',
+
+            // Zonas
+            'ver zonas',
+            'crear zonas',
+            'editar zonas',
+            'eliminar zonas',
         ];
 
         foreach ($permisos as $permiso) {
